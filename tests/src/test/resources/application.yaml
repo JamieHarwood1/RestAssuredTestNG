@@ -1,0 +1,4 @@
+web:
+  url: www.google.co.uk
+  scheme: https
+  path: /

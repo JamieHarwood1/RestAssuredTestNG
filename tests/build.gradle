@@ -1,0 +1,41 @@
+group 'tests'
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Testing
+	compile group: 'org.testng', name: 'testng', version: '6.14.3'
+	compile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.7'
+
+	// Spring Boot
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.1.RELEASE'
+
+	// Utils
+	compile group: 'org.projectlombok', name: 'lombok', version: '1.16.14'
+}
+
+springBoot {
+	// This doesn't actually do anything, but Gradle goes bonkers without it.
+	// We don't currently have a main class.
+	mainClass = "webTests.ResponseTest"
+}
+
+test {
+	useTestNG {
+		suites 'src/test/resources/testng.xml'
+	}
+}
